@@ -26,7 +26,7 @@ func main() {
 	samples[1].Print()
 	samples[2].Print()
 
-	// split data in train and test samples
+	// split samples in train and test dataset
 	var (
 		trainingData = samples[:len(samples)/2]
 		testData     = samples[len(samples)/2:]
