@@ -22,7 +22,13 @@ func (cm ConfusionMatrix) Print() {
 	for i := 0; i < 10; i++ {
 		str = ""
 		for j := 0; j < 10; j++ {
-			str += "|" + fmt.Sprintf("%v", a[i][j])
+			str += "| " + fmt.Sprintf("%v", a[i][j])
+			if a[i][j] < 10 {
+				str += " "
+			}
+			if j == 9 {
+				str += " |"
+			}
 		}
 		fmt.Print(str + "\n")
 	}
