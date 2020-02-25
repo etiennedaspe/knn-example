@@ -1,6 +1,13 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
+
+const (
+	sampleHeight = 8
+	sampleWidth  = 8
+)
 
 type (
 	Sample struct {
@@ -14,16 +21,17 @@ type (
 
 // Print a sample in ASCII art
 func (s Sample) Print() {
-	if len(s.Features) != 64 {
-		panic("not enough features")
+	if len(s.Features) != sampleHeight*sampleWidth {
+		fmt.Print("can't print sample - not enough features")
+		return
 	}
 
 	fmt.Printf("\nClass : %v\n", s.Class)
 
 	var str string
-	for i := 0; i < 8; i++ {
+	for i := 0; i < sampleHeight; i++ {
 		str = ""
-		for j := 0; j < 8; j++ {
+		for j := 0; j < sampleWidth; j++ {
 			str += " " + greyASCII(s.Features[8*i+j])
 			str += " " + greyASCII(s.Features[8*i+j])
 		}
@@ -32,6 +40,7 @@ func (s Sample) Print() {
 	}
 }
 
+// Features returns arrays of feature
 func (s Samples) Features() (fs []Features) {
 	for _, sample := range s {
 		fs = append(fs, sample.Features)
