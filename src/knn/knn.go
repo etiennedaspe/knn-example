@@ -93,7 +93,7 @@ type Classes [10]int
 
 func (cs Classes) majorityVoting() int {
 	var (
-		max int
+		max    int
 		winner int
 	)
 	for c, nbVotes := range cs {

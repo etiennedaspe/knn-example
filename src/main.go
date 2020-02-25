@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"knn_example/utils"
 	"knn_example/digits"
 	"knn_example/knn"
+	"knn_example/utils"
 )
 
 // the number of nearest neighbours used
