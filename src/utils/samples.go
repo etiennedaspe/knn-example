@@ -2,27 +2,30 @@ package utils
 
 import "fmt"
 
-type Sample struct {
-	Features Features
-	Class    int
-}
+type (
+	Sample struct {
+		Features Features
+		Class    int
+	}
 
-type Samples []Sample
-type Features []int
+	Samples  []Sample
+	Features []int
+)
 
+// Print a sample in ASCII art
 func (s Sample) Print() {
 	if len(s.Features) != 64 {
 		panic("not enough features")
 	}
 
 	fmt.Printf("\nClass : %v\n", s.Class)
-	fmt.Print("_______________________________\n")
+
 	var str string
 	for i := 0; i < 8; i++ {
 		str = ""
 		for j := 0; j < 8; j++ {
-			str += "|" + greyASCII(s.Features[8*i+j])
-			str += "|" + greyASCII(s.Features[8*i+j])
+			str += " " + greyASCII(s.Features[8*i+j])
+			str += " " + greyASCII(s.Features[8*i+j])
 		}
 		fmt.Print(str + "\n")
 		fmt.Print(str + "\n")
@@ -36,7 +39,10 @@ func (s Samples) Features() (fs []Features) {
 	return
 }
 
-// http://paulbourke.net/dataformats/asciiart/
+// greyASCII returns an ASCII character with a scale of ten shades of grey
+//
+// Source: http://paulbourke.net/dataformats/asciiart/
+//
 func greyASCII(i int) string {
 	switch i {
 	case 0:
