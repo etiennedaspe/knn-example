@@ -1,23 +1,23 @@
 package knn
 
 import (
-	"knn_example/data"
+	"knn_example/utils"
 	"math"
 	"sort"
 )
 
 type Classifier struct {
-	Samples data.Samples
+	Samples utils.Samples
 }
 
 type Prediction struct {
-	Sample            data.Sample
-	NearestNeighbours data.Samples
+	Sample            utils.Sample
+	NearestNeighbours utils.Samples
 }
 
 type Predictions []Prediction
 
-func (ps Predictions) Samples() (samples data.Samples) {
+func (ps Predictions) Samples() (samples utils.Samples) {
 	for _, p := range ps {
 		samples = append(samples, p.Sample)
 	}
@@ -41,7 +41,7 @@ func (ps Predictions) Samples() (samples data.Samples) {
 //
 //				return predictions
 //
-func (c Classifier) Predict(k int, images []data.Features) Predictions {
+func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 	if k > len(c.Samples) {
 		panic("not enough samples in classifier")
 	}
@@ -66,8 +66,8 @@ func (c Classifier) Predict(k int, images []data.Features) Predictions {
 		// for k-nearest neighbours
 		// count the number of representatives of each class
 		var (
-			candidates Classes      // for each class, the number of representatives
-			nn         data.Samples // nearest neighbours
+			candidates Classes       // for each class, the number of representatives
+			nn         utils.Samples // nearest neighbours
 		)
 		for i := 0; i < k; i++ {
 			candidates[neighbours[i].Sample.Class]++
@@ -78,7 +78,7 @@ func (c Classifier) Predict(k int, images []data.Features) Predictions {
 
 		// add the prediction found for the current image with its nearest neighbours.
 		ps = append(ps, Prediction{
-			Sample: data.Sample{
+			Sample: utils.Sample{
 				Features: img,
 				Class:    p,
 			},
@@ -108,7 +108,7 @@ func (cs Classes) majorityVoting() int {
 //
 // 			D(x, y) = √ ∑ (xᵢ - yᵢ)²
 //
-func euclideanDistance(x, y data.Features) (d float64) {
+func euclideanDistance(x, y utils.Features) (d float64) {
 	for i := range x {
 		d += float64((x[i] - y[i]) * (x[i] - y[i]))
 	}
@@ -117,7 +117,7 @@ func euclideanDistance(x, y data.Features) (d float64) {
 }
 
 type SampleDistance struct {
-	Sample   data.Sample
+	Sample   utils.Sample
 	Distance float64
 }
 

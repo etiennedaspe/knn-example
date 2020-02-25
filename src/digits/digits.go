@@ -2,7 +2,7 @@ package digits
 
 import (
 	"bufio"
-	"knn_example/data"
+	"knn_example/utils"
 	"os"
 	"strconv"
 	"strings"
@@ -10,12 +10,14 @@ import (
 
 const NbSamples = 1797
 
-func LoadDigits() (samples data.Samples, err error) {
+func Load() (samples utils.Samples, err error) {
 	var f *os.File
+
 	f, err = os.Open("./digits/digits.csv")
 	if err != nil {
 		return
 	}
+
 	defer func() {
 		err = f.Close()
 	}()
@@ -24,7 +26,7 @@ func LoadDigits() (samples data.Samples, err error) {
 	sc.Split(bufio.ScanLines)
 
 	for sc.Scan() {
-		var sp data.Sample
+		var sp utils.Sample
 		a := strings.Split(sc.Text(), ",")
 		sp.Class, err = strconv.Atoi(a[len(a)-1])
 		if err != nil {

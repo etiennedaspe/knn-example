@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"knn_example/data"
+	"knn_example/utils"
 	"knn_example/digits"
 	"knn_example/knn"
 )
@@ -12,7 +12,7 @@ const k = 7
 
 func main() {
 	// load digits
-	samples, err := digits.LoadDigits()
+	samples, err := digits.Load()
 	if err != nil {
 		panic(err)
 	}
@@ -49,7 +49,7 @@ func main() {
 
 	// print confusion matrix
 	fmt.Print("\n========= Confusion Matrix =========\n")
-	cm := data.ConfusionMatrix{
+	cm := utils.ConfusionMatrix{
 		TestData:    testData,
 		Predictions: predictions.Samples(),
 	}
