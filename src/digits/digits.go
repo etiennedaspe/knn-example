@@ -27,15 +27,18 @@ func Load() (samples utils.Samples, err error) {
 
 	for sc.Scan() {
 		var sp utils.Sample
-		a := strings.Split(sc.Text(), ",")
-		sp.Class, err = strconv.Atoi(a[len(a)-1])
+		l := strings.Split(sc.Text(), ",")
+
+		// the class is the last column
+		sp.Class, err = strconv.Atoi(l[len(l)-1])
 		if err != nil {
 			return
 		}
 
+		// parse features
 		var ft int
-		for _, s := range a[:len(a)-1] {
-			ft, err = strconv.Atoi(s)
+		for _, sFt := range l[:len(l)-1] {
+			ft, err = strconv.Atoi(sFt)
 			if err != nil {
 				return
 			}
