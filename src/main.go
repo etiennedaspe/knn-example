@@ -57,7 +57,7 @@ func main() {
 
 	// first prediction
 	fmt.Print("\n========= First Prediction =========\n")
-	predictions[5].Sample.Print()
+	predictions[0].Sample.Print()
 
 	// k nearest neighbours of the first prediction
 	fmt.Print("\n========= K Nearest Neighbours =========\n")
