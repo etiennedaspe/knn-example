@@ -35,7 +35,7 @@ func main() {
 	// create KNN classifier
 	classifier := knn.Classifier{Samples: trainingData}
 
-	// predict
+	// predict class for each image of the test dataset
 	predictions := classifier.Predict(k, testData.Features())
 
 	// print first three predictions
