@@ -42,8 +42,10 @@ func (ps Predictions) Samples() (samples utils.Samples) {
 //				return predictions
 //
 func (c Classifier) Predict(k int, images []utils.Features) Predictions {
-	if k > len(c.Samples) {
-		panic("not enough samples in classifier")
+	// bad value for k
+	// fallback with a 1-nearest neighbor classifier
+	if k <= 0 || k > len(c.Samples) {
+		k = 1
 	}
 
 	var ps Predictions
