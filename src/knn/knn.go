@@ -37,7 +37,7 @@ func (ps Predictions) Samples() (samples utils.Samples) {
 //
 //					sortByDistance(neighbours)
 //
-//					predictions[img] = majorityVote(k-nearest neighbours)
+//					predictions[img] = majorityVoting(k-nearest neighbours)
 //
 //				return predictions
 //
