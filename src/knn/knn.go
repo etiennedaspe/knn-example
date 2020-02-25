@@ -6,7 +6,7 @@ import (
 	"sort"
 )
 
-type KNNC struct {
+type Classifier struct {
 	Samples data.Samples
 }
 
@@ -17,33 +17,51 @@ type Prediction struct {
 
 type Predictions []Prediction
 
-func (p Predictions) Samples() (samples data.Samples) {
-	for _, prediction := range p {
-		samples = append(samples, prediction.Sample)
+func (ps Predictions) Samples() (samples data.Samples) {
+	for _, p := range ps {
+		samples = append(samples, p.Sample)
 	}
 	return
 }
 
-func (knnc KNNC) Predict(k int, d []data.Features) (predictions Predictions) {
-	if k > len(knnc.Samples) {
+// Predict the class of each image in images, using the k-nearest neighbours algorithm.
+//
+//			algorithm k-nearest neighbours is
+// 				input: the number of nearest neighbours k,
+//					   images for which we want to predict the class
+//				output: a list of predictions where a prediction is an image with its predicted class
+//
+//				for each image img in images do
+//					for each training sample s in the training set do
+//						neighbours[s] = euclideanDistance(img, s)
+//
+//					sortByDistance(neighbours)
+//
+//					predictions[img] = majorityVote(k-nearest neighbours)
+//
+//				return predictions
+//
+func (c Classifier) Predict(k int, images []data.Features) Predictions {
+	if k > len(c.Samples) {
 		panic("not enough samples in classifier")
 	}
 
+	var ps Predictions
+
 	// compute prediction for each image
-	for _, features := range d {
+	for _, img := range images {
 		// compute euclidean distances between the features of the image to predict,
 		// and the features of each sample of the model.
-		var distances ByDistance
-		for _, sample := range knnc.Samples {
-			distance := euclideanDistance(features, sample.Features)
-			sd := SampleDistance{
-				Sample:   sample,
-				Distance: distance,
-			}
-			distances = append(distances, sd)
+		var neighbours ByDistance
+		for _, s := range c.Samples {
+			d := euclideanDistance(img, s.Features)
+			neighbours = append(neighbours, SampleDistance{
+				Sample:   s,
+				Distance: d,
+			})
 		}
 
-		sort.Sort(distances)
+		sort.Sort(neighbours)
 
 		// for k-nearest neighbours
 		// count the number of representatives of each class
@@ -52,40 +70,49 @@ func (knnc KNNC) Predict(k int, d []data.Features) (predictions Predictions) {
 			nn         data.Samples // nearest neighbours
 		)
 		for i := 0; i < k; i++ {
-			candidates[distances[i].Sample.Class]++
-			nn = append(nn, distances[i].Sample)
+			candidates[neighbours[i].Sample.Class]++
+			nn = append(nn, neighbours[i].Sample)
 		}
 
-		// add the prediction found for the current image
-		// with its nearest neighbours.
-		predictions = append(predictions, Prediction{
+		p := candidates.majorityVoting()
+
+		// add the prediction found for the current image with its nearest neighbours.
+		ps = append(ps, Prediction{
 			Sample: data.Sample{
-				Features: features,
-				Class:    candidates.majorityVoting(),
+				Features: img,
+				Class:    p,
 			},
 			NearestNeighbours: nn,
 		})
 	}
-	return
+
+	return ps
 }
 
 type Classes [10]int
 
-func (l Classes) majorityVoting() (winner int) {
-	var max int
-	for label, nbVotes := range l {
+func (cs Classes) majorityVoting() int {
+	var (
+		max int
+		winner int
+	)
+	for c, nbVotes := range cs {
 		if nbVotes > max {
-			winner = label
+			winner = c
 		}
 	}
-	return
+	return winner
 }
 
-func euclideanDistance(x, y data.Features) (distance float64) {
+// euclideanDistance computes the euclidean distance D between the two vectors x and y.
+//
+// 			D(x, y) = √ ∑ (xᵢ - yᵢ)²
+//
+func euclideanDistance(x, y data.Features) (d float64) {
 	for i := range x {
-		distance += float64((x[i] - y[i]) * (x[i] - y[i]))
+		d += float64((x[i] - y[i]) * (x[i] - y[i]))
 	}
-	math.Sqrt(distance)
+	math.Sqrt(d)
 	return
 }
 

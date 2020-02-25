@@ -7,6 +7,9 @@ import (
 	"knn_example/knn"
 )
 
+// the number of nearest neighbours used
+const k = 7
+
 func main() {
 	// load digits
 	samples, err := digits.LoadDigits()
@@ -30,10 +33,10 @@ func main() {
 	)
 
 	// create KNN classifier
-	classifier := knn.KNNC{Samples: trainingData}
+	classifier := knn.Classifier{Samples: trainingData}
 
 	// predict
-	predictions := classifier.Predict(7, testData.Features())
+	predictions := classifier.Predict(k, testData.Features())
 
 	// print first three predictions
 	if len(predictions) != len(testData) {
