@@ -37,7 +37,8 @@ type (
 //
 //				for each image img in images do
 //					for each training sample s in the training set do
-//						neighbours[s] = euclideanDistance(img, s)
+//						d = euclidean distance between img and s
+//						neighbours += (s, d)
 //
 //					sortByDistance(neighbours)
 //
@@ -47,7 +48,7 @@ type (
 //
 func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 	// bad value for k
-	// fallback with a 1-nearest neighbor classifier
+	// fallback with a 1-nearest neighbour classifier
 	if k <= 0 || k > len(c.Samples) {
 		k = 1
 	}
