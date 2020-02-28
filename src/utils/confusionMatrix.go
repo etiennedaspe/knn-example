@@ -7,7 +7,7 @@ type ConfusionMatrix struct {
 	Predictions Samples
 }
 
-const NbClasses = 10
+const nbClasses = 10
 
 // Print the confusion matrix in ASCII art.
 func (cm ConfusionMatrix) Print() {
@@ -15,21 +15,21 @@ func (cm ConfusionMatrix) Print() {
 		panic("testData and predictions should have the same size")
 	}
 
-	var a [NbClasses][NbClasses]int
+	var a [nbClasses][nbClasses]int
 
 	for i, sample := range cm.TestData {
 		a[sample.Class][cm.Predictions[i].Class]++
 	}
 
 	var str string
-	for i := 0; i < NbClasses; i++ {
+	for i := 0; i < nbClasses; i++ {
 		str = ""
-		for j := 0; j < NbClasses; j++ {
+		for j := 0; j < nbClasses; j++ {
 			str += "| " + fmt.Sprintf("%v", a[i][j])
-			if a[i][j] < NbClasses {
+			if a[i][j] < nbClasses {
 				str += " "
 			}
-			if j == NbClasses-1 {
+			if j == nbClasses-1 {
 				str += " |"
 			}
 		}
