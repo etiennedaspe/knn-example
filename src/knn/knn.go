@@ -18,6 +18,7 @@ type (
 
 	Predictions []Prediction
 
+	// Classes is used to store the number of representatives for each class during the majority voting.
 	Classes [10]int
 
 	SampleDistance struct {
@@ -97,6 +98,19 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 }
 
 // majorityVoting return the class with the most representatives.
+//
+// The index in the array of Classes cs matches the corresponding digit,
+// e.g. the number of representatives for the class 0 will be stored at index 0.
+//
+// Example:
+//
+// 		Assume that for seven neighbours, we have two samples of 0, two samples of 4 and five samples of 6,
+// 		an array c of classes will be filled like this:
+//
+// 		c = [2, 0, 0, 0, 2, 0, 5, 0, 0, 0]
+//
+//		Here the winner is the class 6 with five representatives.
+//
 // TODO(ed) add weighted majority voting.
 func (cs Classes) majorityVoting() int {
 	var (
