@@ -44,12 +44,12 @@ type (
 //
 //				for each image img in images do
 //					for each training sample s in the training set do
-//						d = euclidean distance between img and s
+//						d = euclideanDistance(img, s)
 //						neighbours += (s, d)
 //
 //					sortByDistance(neighbours)
 //
-//					predictions[img] = majorityVoting(k-nearest neighbours)
+//					predictions[img] = majorityVoting(first k neighbours)
 //
 //				return predictions
 //
