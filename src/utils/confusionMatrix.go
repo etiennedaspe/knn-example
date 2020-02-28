@@ -7,26 +7,28 @@ type ConfusionMatrix struct {
 	Predictions Samples
 }
 
+const NbClasses = 10
+
 func (cm ConfusionMatrix) Print() {
 	if len(cm.TestData) != len(cm.Predictions) {
 		panic("testData and predictions should have the same size")
 	}
 
-	var a [10][10]int
+	var a [NbClasses][NbClasses]int
 
 	for i, sample := range cm.TestData {
 		a[sample.Class][cm.Predictions[i].Class]++
 	}
 
 	var str string
-	for i := 0; i < 10; i++ {
+	for i := 0; i < NbClasses; i++ {
 		str = ""
-		for j := 0; j < 10; j++ {
+		for j := 0; j < NbClasses; j++ {
 			str += "| " + fmt.Sprintf("%v", a[i][j])
-			if a[i][j] < 10 {
+			if a[i][j] < NbClasses {
 				str += " "
 			}
-			if j == 9 {
+			if j == NbClasses-1 {
 				str += " |"
 			}
 		}
