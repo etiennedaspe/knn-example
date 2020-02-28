@@ -10,6 +10,7 @@ const (
 )
 
 type (
+	// Sample represents an image of a handwritten digit (features) with its value (class).
 	Sample struct {
 		Features Features
 		Class    int

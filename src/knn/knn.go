@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	// Classifiers contains training set.
+	// Classifiers contains the training set.
 	Classifier struct {
 		Samples utils.Samples
 	}
@@ -19,7 +19,6 @@ type (
 		NearestNeighbours utils.Samples
 	}
 
-	// Predictions stores a list of predictions.
 	Predictions []Prediction
 
 	// Classes is used to store the number of representatives for each class during the majority voting.
