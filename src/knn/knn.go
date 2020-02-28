@@ -54,17 +54,16 @@ type (
 //				return predictions
 //
 func (c Classifier) Predict(k int, images []utils.Features) Predictions {
-	// bad value for k
-	// fallback with a 1-nearest neighbour classifier
+	// Bad value for k, fallback with a 1-nearest neighbour classifier.
 	if k <= 0 || k > len(c.Samples) {
 		k = 1
 	}
 
 	var predictions Predictions
 
-	// compute prediction for each image
+	// Compute prediction for each image.
 	for _, img := range images {
-		// compute euclidean distances between the features of the image to predict,
+		// Compute euclidean distances between the features of the image to predict,
 		// and the features of each sample of the model.
 		var neighbours ByDistance
 		for _, s := range c.Samples {
@@ -75,12 +74,13 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 			})
 		}
 
+		// Sort neighbours by distance with ascending order.
 		sort.Sort(neighbours)
 
-		// for k-nearest neighbours, count the number of representatives of each class.
+		// For k-nearest neighbours, count the number of representatives of each class.
 		var (
-			candidates Classes       // for each class, the number of representatives
-			nn         utils.Samples // nearest neighbours
+			candidates Classes       // For each class, the number of representatives.
+			nn         utils.Samples // Nearest neighbours.
 		)
 		for i := 0; i < k; i++ {
 			candidates[neighbours[i].Sample.Class]++
@@ -89,7 +89,7 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 
 		p := candidates.majorityVoting()
 
-		// add the prediction found for the current image with its nearest neighbours.
+		// Add the prediction found for the current image with its nearest neighbours.
 		predictions = append(predictions, Prediction{
 			Sample: utils.Sample{
 				Features: img,

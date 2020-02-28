@@ -19,7 +19,7 @@ type (
 	Features []int
 )
 
-// Print a sample in ASCII art
+// Print a sample in ASCII art.
 func (s Sample) Print() {
 	if len(s.Features) != sampleHeight*sampleWidth {
 		fmt.Print("can't print sample - not enough features")
@@ -40,7 +40,7 @@ func (s Sample) Print() {
 	}
 }
 
-// Features returns arrays of feature
+// Features returns arrays of feature.
 func (s Samples) Features() (fs []Features) {
 	for _, sample := range s {
 		fs = append(fs, sample.Features)
@@ -48,7 +48,7 @@ func (s Samples) Features() (fs []Features) {
 	return
 }
 
-// greyASCII returns an ASCII character with a scale of ten shades of grey
+// greyASCII returns an ASCII character with a scale of ten shades of grey.
 //
 // Source: http://paulbourke.net/dataformats/asciiart/
 //

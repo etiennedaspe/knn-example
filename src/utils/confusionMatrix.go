@@ -9,6 +9,7 @@ type ConfusionMatrix struct {
 
 const NbClasses = 10
 
+// Print the confusion matrix in ASCII art.
 func (cm ConfusionMatrix) Print() {
 	if len(cm.TestData) != len(cm.Predictions) {
 		panic("testData and predictions should have the same size")

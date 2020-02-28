@@ -27,13 +27,13 @@ func Load() (samples utils.Samples, err error) {
 		var s utils.Sample
 		l := strings.Split(sc.Text(), ",")
 
-		// the class is the last column
+		// the class is the last column in the csv file.
 		s.Class, err = strconv.Atoi(l[len(l)-1])
 		if err != nil {
 			return
 		}
 
-		// parse features
+		// parse features.
 		var ft int
 		for _, sFt := range l[:len(l)-1] {
 			ft, err = strconv.Atoi(sFt)

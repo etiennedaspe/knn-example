@@ -7,41 +7,41 @@ import (
 	"knn_example/utils"
 )
 
-// the number of nearest neighbours used
+// The number of nearest neighbours used.
 const k = 7
 
 func main() {
-	// load digits
+	// Load digits.
 	samples, err := digits.Load()
 	if err != nil {
 		panic(err)
 	}
 
-	// print first three digits
+	// Print first three digits.
 	fmt.Print("\n========= Samples =========\n")
 	samples[0].Print()
 	samples[1].Print()
 	samples[2].Print()
 
-	// split samples in train and test dataset
+	// Split samples in train and test dataset.
 	var (
 		trainingData = samples[:len(samples)/2]
 		testData     = samples[len(samples)/2:]
 	)
 
-	// create KNN classifier
+	// Create KNN classifier.
 	classifier := knn.Classifier{Samples: trainingData}
 
-	// predict class for each image of the test dataset
+	// Predict class for each image of the test dataset.
 	predictions := classifier.Predict(k, testData.Features())
 
-	// print first three predictions
+	// Print first three predictions.
 	fmt.Print("\n========= Predictions =========\n")
 	predictions[0].Sample.Print()
 	predictions[1].Sample.Print()
 	predictions[2].Sample.Print()
 
-	// print confusion matrix
+	// Print confusion matrix.
 	fmt.Print("\n========= Confusion Matrix =========\n")
 	cm := utils.ConfusionMatrix{
 		TestData:    testData,
@@ -49,11 +49,11 @@ func main() {
 	}
 	cm.Print()
 
-	// first prediction
+	// First prediction.
 	fmt.Print("\n========= First Prediction =========\n")
 	predictions[0].Sample.Print()
 
-	// k nearest neighbours of the first prediction
+	// The k-nearest neighbours of the first prediction.
 	fmt.Print("\n========= K-Nearest Neighbours =========\n")
 	for _, n := range predictions[5].NearestNeighbours {
 		n.Print()
