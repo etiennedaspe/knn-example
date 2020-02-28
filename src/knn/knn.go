@@ -6,23 +6,27 @@ import (
 	"sort"
 )
 
-type Classifier struct {
-	Samples utils.Samples
-}
-
-type Prediction struct {
-	Sample            utils.Sample
-	NearestNeighbours utils.Samples
-}
-
-type Predictions []Prediction
-
-func (ps Predictions) Samples() (samples utils.Samples) {
-	for _, p := range ps {
-		samples = append(samples, p.Sample)
+type (
+	Classifier struct {
+		Samples utils.Samples
 	}
-	return
-}
+
+	Prediction struct {
+		Sample            utils.Sample
+		NearestNeighbours utils.Samples
+	}
+
+	Predictions []Prediction
+
+	Classes [10]int
+
+	SampleDistance struct {
+		Sample   utils.Sample
+		Distance float64
+	}
+
+	ByDistance []SampleDistance
+)
 
 // Predict the class of each image in images, using the k-nearest neighbours algorithm.
 //
@@ -91,8 +95,6 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 	return ps
 }
 
-type Classes [10]int
-
 // majorityVoting return the class with the most representatives.
 // TODO(ed) add weighted majority voting.
 func (cs Classes) majorityVoting() int {
@@ -120,13 +122,6 @@ func euclideanDistance(x, y utils.Features) (d float64) {
 	return
 }
 
-type SampleDistance struct {
-	Sample   utils.Sample
-	Distance float64
-}
-
-type ByDistance []SampleDistance
-
 func (b ByDistance) Len() int {
 	return len(b)
 }
@@ -137,4 +132,11 @@ func (b ByDistance) Swap(i, j int) {
 
 func (b ByDistance) Less(i, j int) bool {
 	return b[i].Distance < b[j].Distance
+}
+
+func (ps Predictions) Samples() (samples utils.Samples) {
+	for _, p := range ps {
+		samples = append(samples, p.Sample)
+	}
+	return
 }
