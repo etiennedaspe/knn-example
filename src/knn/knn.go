@@ -36,21 +36,21 @@ type (
 
 // Predict the class of each image in images, using the k-nearest neighbours algorithm.
 //
-//			algorithm k-nearest neighbours is
-// 				input: the number of nearest neighbours k,
-//					   images for which we want to predict the class
-//				output: a list of predictions where a prediction is an image with its predicted class
+//	algorithm k-nearest neighbours is
+// 		input: the number of nearest neighbours k,
+//			   images for which we want to predict the class
+//		output: a list of predictions where a prediction is an image with its predicted class
 //
-//				for each image img in images do
-//					for each training sample s in the training set do
-//						d = euclideanDistance(img, s)
-//						neighbours += (s, d)
+//		for each image img in images do
+//			for each training sample s in the training set do
+//				d = euclideanDistance(img, s)
+//				neighbours += (s, d)
 //
-//					sortByDistance(neighbours)
+//			sortByDistance(neighbours)
 //
-//					predictions[img] = majorityVoting(first k neighbours)
+//			predictions[img] = majorityVoting(first k neighbours)
 //
-//				return predictions
+//		return predictions
 //
 // More information:
 // https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
@@ -111,12 +111,12 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 //
 // Example:
 //
-// 		Assume that for seven neighbours, we have two samples of 0, two samples of 4 and five samples of 6,
-// 		an array c of classes will be filled like this:
+// 	Assume that for seven neighbours, we have two samples of 0, two samples of 4 and five samples of 6,
+// 	an array c of classes will be filled like this:
 //
-// 		c = [2, 0, 0, 0, 2, 0, 5, 0, 0, 0]
+// 	c = [2, 0, 0, 0, 2, 0, 5, 0, 0, 0]
 //
-//		Here the winner is the class 6 with five representatives.
+//	Here the winner is the class 6 with five representatives.
 //
 func (cs Classes) majorityVoting() int {
 	var (
@@ -133,7 +133,7 @@ func (cs Classes) majorityVoting() int {
 
 // euclideanDistance computes the euclidean distance D between the two vectors x and y.
 //
-// 			D(x, y) = √ ∑ (xᵢ - yᵢ)²
+// 	D(x, y) = √ ∑ (xᵢ - yᵢ)²
 //
 func euclideanDistance(x, y utils.Features) (d float64) {
 	for i := range x {
