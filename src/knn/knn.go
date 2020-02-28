@@ -52,7 +52,7 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 		k = 1
 	}
 
-	var ps Predictions
+	var predictions Predictions
 
 	// compute prediction for each image
 	for _, img := range images {
@@ -83,7 +83,7 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 		p := candidates.majorityVoting()
 
 		// add the prediction found for the current image with its nearest neighbours.
-		ps = append(ps, Prediction{
+		predictions = append(predictions, Prediction{
 			Sample: utils.Sample{
 				Features: img,
 				Class:    p,
@@ -92,7 +92,7 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 		})
 	}
 
-	return ps
+	return predictions
 }
 
 // majorityVoting return the class with the most representatives.
