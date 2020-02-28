@@ -8,6 +8,27 @@ import (
 	"strings"
 )
 
+// Load digit images and return an array of samples.
+//
+// The dataset used is the same as the one used in scikit-learn:
+// https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html?highlight=dataset#sklearn.datasets.load_digits
+//
+// The dataset is the test set of the Optical Recognition of Handwritten Digits database.
+//
+// The file digits.csv contains 1797 lines.
+// Each line contains 64 integers (elements of the 8x8 matrix mentioned below),
+// plus one integer in the range 0..9 (the class, i.e. the value of the handwritten digit).
+//
+// Data preprocessing:
+//
+// "We used preprocessing programs made available by NIST to extract normalized bitmaps of handwritten digits from a preprinted form.
+// From a total of 43 people, 30 contributed to the training set and different 13 to the test set.
+// 32x32 bitmaps are divided into nonoverlapping blocks of 4x4 and the number of on pixels are counted in each block.
+// This generates an input matrix of 8x8 where each element is an integer in the range 0..16.
+// This reduces dimensionality and gives invariance to small distortions."
+//
+// Source : https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
+//
 func Load() (samples utils.Samples, err error) {
 	var f *os.File
 
