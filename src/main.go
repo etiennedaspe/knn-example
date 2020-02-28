@@ -18,9 +18,6 @@ func main() {
 	}
 
 	// print first three digits
-	if len(samples) != digits.NbSamples {
-		panic("not enough samples")
-	}
 	fmt.Print("\n========= Samples =========\n")
 	samples[0].Print()
 	samples[1].Print()
@@ -39,9 +36,6 @@ func main() {
 	predictions := classifier.Predict(k, testData.Features())
 
 	// print first three predictions
-	if len(predictions) != len(testData) {
-		panic("not enough predictions")
-	}
 	fmt.Print("\n========= Predictions =========\n")
 	predictions[0].Sample.Print()
 	predictions[1].Sample.Print()
