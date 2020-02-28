@@ -11,10 +11,6 @@ const nbClasses = 10
 
 // Print the confusion matrix in ASCII art.
 func (cm ConfusionMatrix) Print() {
-	if len(cm.TestData) != len(cm.Predictions) {
-		panic("testData and predictions should have the same size")
-	}
-
 	var a [nbClasses][nbClasses]int
 
 	for i, sample := range cm.TestData {
