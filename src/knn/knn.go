@@ -52,6 +52,9 @@ type (
 //
 //				return predictions
 //
+// More information:
+// https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
+//
 func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 	// Bad value for k, fallback with a 1-nearest neighbour classifier.
 	if k <= 0 || k > len(c.Samples) {
