@@ -26,11 +26,11 @@ func Load() (samples utils.Samples, err error) {
 	sc.Split(bufio.ScanLines)
 
 	for sc.Scan() {
-		var sp utils.Sample
+		var s utils.Sample
 		l := strings.Split(sc.Text(), ",")
 
 		// the class is the last column
-		sp.Class, err = strconv.Atoi(l[len(l)-1])
+		s.Class, err = strconv.Atoi(l[len(l)-1])
 		if err != nil {
 			return
 		}
@@ -42,10 +42,10 @@ func Load() (samples utils.Samples, err error) {
 			if err != nil {
 				return
 			}
-			sp.Features = append(sp.Features, ft)
+			s.Features = append(s.Features, ft)
 		}
 
-		samples = append(samples, sp)
+		samples = append(samples, s)
 	}
 
 	return
