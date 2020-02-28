@@ -27,7 +27,7 @@ import (
 // This generates an input matrix of 8x8 where each element is an integer in the range 0..16.
 // This reduces dimensionality and gives invariance to small distortions."
 //
-// Source : https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
+// Source: https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
 //
 func Load() (samples utils.Samples, err error) {
 	var f *os.File
