@@ -8,8 +8,6 @@ import (
 	"strings"
 )
 
-const NbSamples = 1797
-
 func Load() (samples utils.Samples, err error) {
 	var f *os.File
 
