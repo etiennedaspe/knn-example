@@ -7,25 +7,31 @@ import (
 )
 
 type (
+	// Classifiers contains training set.
 	Classifier struct {
 		Samples utils.Samples
 	}
 
+	// Prediction contains a sample with the features given and the class predicted,
+	// with the list of the nearest neighbours.
 	Prediction struct {
 		Sample            utils.Sample
 		NearestNeighbours utils.Samples
 	}
 
+	// Predictions stores a list of predictions.
 	Predictions []Prediction
 
 	// Classes is used to store the number of representatives for each class during the majority voting.
 	Classes [10]int
 
+	// SampleDistance is used to store a sample and its distance from the image to be predicted.
 	SampleDistance struct {
 		Sample   utils.Sample
 		Distance float64
 	}
 
+	// ByDistance allows to sort by distance an array of SampleDistance.
 	ByDistance []SampleDistance
 )
 
@@ -71,8 +77,7 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 
 		sort.Sort(neighbours)
 
-		// for k-nearest neighbours
-		// count the number of representatives of each class
+		// for k-nearest neighbours, count the number of representatives of each class.
 		var (
 			candidates Classes       // for each class, the number of representatives
 			nn         utils.Samples // nearest neighbours
@@ -111,7 +116,6 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 //
 //		Here the winner is the class 6 with five representatives.
 //
-// TODO(ed) add weighted majority voting.
 func (cs Classes) majorityVoting() int {
 	var (
 		max    int
