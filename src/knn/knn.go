@@ -93,6 +93,8 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 
 type Classes [10]int
 
+// majorityVoting return the class with the most representatives.
+// TODO(ed) add weighted majority voting.
 func (cs Classes) majorityVoting() int {
 	var (
 		max    int
