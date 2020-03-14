@@ -55,7 +55,7 @@ func main() {
 
 	// The k-nearest neighbours of the first prediction.
 	fmt.Print("\n========= K-Nearest Neighbours =========\n")
-	for _, n := range predictions[5].NearestNeighbours {
+	for _, n := range predictions[0].NearestNeighbours {
 		n.Print()
 	}
 }
