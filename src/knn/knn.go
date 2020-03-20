@@ -125,6 +125,7 @@ func (cs Classes) majorityVoting() int {
 	)
 	for c, nbVotes := range cs {
 		if nbVotes > max {
+			max = nbVotes
 			winner = c
 		}
 	}
