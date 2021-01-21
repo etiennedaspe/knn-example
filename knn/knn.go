@@ -7,7 +7,7 @@ import (
 )
 
 type (
-	// Classifiers contains the training set.
+	// Classifier contains the training set.
 	Classifier struct {
 		Samples utils.Samples
 	}
