@@ -19,6 +19,7 @@ type (
 		NearestNeighbours utils.Samples
 	}
 
+	// Predictions contains each prediction with its nearest neighbours.
 	Predictions []Prediction
 
 	// Classes is used to store the number of representatives for each class during the majority voting.
@@ -156,6 +157,7 @@ func (b ByDistance) Less(i, j int) bool {
 	return b[i].Distance < b[j].Distance
 }
 
+// Samples predicted without the nearest neighbours.
 func (ps Predictions) Samples() (samples utils.Samples) {
 	for _, p := range ps {
 		samples = append(samples, p.Sample)
