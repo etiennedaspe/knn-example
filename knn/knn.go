@@ -112,7 +112,7 @@ func (c Classifier) Predict(k int, images []utils.Features) Predictions {
 //
 // Example:
 //
-// 	Assume that for seven neighbours, we have two samples of 0, two samples of 4 and five samples of 6,
+// 	Assume that for nine neighbours, we have two samples of 0, two samples of 4 and five samples of 6,
 // 	an array c of classes will be filled like this:
 //
 // 	c = [2, 0, 0, 0, 2, 0, 5, 0, 0, 0]
