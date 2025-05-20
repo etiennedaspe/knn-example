@@ -141,8 +141,8 @@ func euclideanDistance(x, y utils.Features) (d float64) {
 	for i := range x {
 		d += float64((x[i] - y[i]) * (x[i] - y[i]))
 	}
-	math.Sqrt(d)
-	return
+	
+	return math.Sqrt(d)
 }
 
 func (b ByDistance) Len() int {
